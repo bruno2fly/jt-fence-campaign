@@ -3,135 +3,344 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JT Fence — Spring 2026 Email Campaign</title>
+<title>2FLY Campaign System — JT Fence Spring 2026</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0ece4; color: #1a1a1a; padding: 40px 20px; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f14; color: #e2e8f0; min-height: 100vh; }
   
-  .page-header { text-align: center; margin-bottom: 32px; }
-  .page-header h1 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.12em; color: #6b7280; margin-bottom: 8px; }
-  .page-header p { font-size: 24px; font-weight: 800; color: #1a3c2a; }
+  /* TOP NAV */
+  .nav { background: #1a1a2e; border-bottom: 1px solid rgba(255,255,255,0.08); padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-logo { background: #6B4EFF; color: white; width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 14px; }
+  .nav-name { font-weight: 700; font-size: 15px; }
+  .nav-sub { font-size: 11px; color: rgba(255,255,255,0.4); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .status-dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+  .status-text { font-size: 12px; color: #4ade80; font-weight: 600; }
+  .campaign-badge { background: rgba(107,78,255,0.2); border: 1px solid rgba(107,78,255,0.4); color: #a78bfa; padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+
+  /* MAIN */
+  .main { max-width: 1100px; margin: 0 auto; padding: 32px 20px; }
+
+  /* CAMPAIGN HEADER */
+  .campaign-header { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 24px 28px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
+  .campaign-header-left h1 { font-size: 22px; font-weight: 800; margin-bottom: 4px; }
+  .campaign-header-left p { font-size: 13px; color: rgba(255,255,255,0.5); }
+  .campaign-meta { display: flex; gap: 24px; }
+  .meta-item { text-align: right; }
+  .meta-label { font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.08em; }
+  .meta-value { font-size: 18px; font-weight: 800; color: #4ade80; }
+
+  /* KPI ROW */
+  .kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 24px; }
+  .kpi { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; padding: 18px; }
+  .kpi-num { font-size: 26px; font-weight: 800; }
+  .kpi-label { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .kpi-sub { font-size: 11px; margin-top: 4px; }
+  .green { color: #4ade80; }
+  .purple { color: #a78bfa; }
+  .blue { color: #60a5fa; }
+  .amber { color: #fbbf24; }
+  .pink { color: #f472b6; }
+
+  /* GRID */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+
+  /* COUNTY TABLE */
+  .card { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; overflow: hidden; }
+  .card-header { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; }
+  .card-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); }
+  .card-badge { background: rgba(107,78,255,0.2); color: #a78bfa; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
   
-  .why-box { max-width: 600px; margin: 0 auto 32px; background: #1a3c2a; color: white; border-radius: 12px; padding: 24px 28px; }
-  .why-box h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.6; margin-bottom: 16px; }
-  .why-list { list-style: none; }
-  .why-list li { padding: 8px 0; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 12px; }
-  .why-list li:last-child { border-bottom: none; }
-  .why-list .num { background: #4ade80; color: #1a3c2a; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; flex-shrink: 0; }
+  table { width: 100%; border-collapse: collapse; }
+  thead th { padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.03); }
+  tbody tr { border-top: 1px solid rgba(255,255,255,0.05); }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody td { padding: 12px 16px; font-size: 13px; }
+  .county-name { font-weight: 700; }
+  .county-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .progress-bar { background: rgba(255,255,255,0.08); border-radius: 4px; height: 6px; overflow: hidden; margin-top: 4px; }
+  .progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #6B4EFF, #4ade80); }
+  .tag { padding: 3px 8px; border-radius: 4px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .tag-ready { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .tag-pending { background: rgba(251,191,36,0.15); color: #fbbf24; }
 
-  /* EMAIL */
-  .email-wrap { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.12); }
-  
-  .e-header { background: #1a3c2a; padding: 20px 28px; display: flex; align-items: center; gap: 14px; }
-  .e-logo-box { background: white; width: 44px; height: 44px; border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; flex-shrink: 0; }
-  .e-logo-box img { width: 36px; height: 36px; object-fit: contain; }
-  .e-brand { color: white; }
-  .e-brand-name { font-size: 18px; font-weight: 800; }
-  .e-brand-sub { font-size: 12px; opacity: 0.6; margin-top: 1px; }
+  /* EMAIL PREVIEW */
+  .email-section { margin-bottom: 24px; }
+  .email-section .card-header { margin-bottom: 0; }
+  .email-outer { padding: 20px; }
+  .email-mock { max-width: 540px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; color: #1a1a1a; box-shadow: 0 8px 40px rgba(0,0,0,0.4); }
+  .em-head { background: #1a3c2a; padding: 18px 24px; display: flex; align-items: center; gap: 12px; }
+  .em-logo { background: white; width: 38px; height: 38px; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .em-logo img { width: 30px; height: 30px; object-fit: contain; }
+  .em-brand-name { color: white; font-size: 17px; font-weight: 800; }
+  .em-brand-sub { color: rgba(255,255,255,0.55); font-size: 11px; margin-top: 1px; }
+  .em-hero { position: relative; height: 220px; overflow: hidden; }
+  .em-hero img { width: 100%; height: 100%; object-fit: cover; }
+  .em-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,60,42,0.85) 0%, transparent 60%); }
+  .em-hero-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px 24px; color: white; }
+  .em-kicker { font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: #86efac; font-weight: 700; margin-bottom: 5px; }
+  .em-h { font-size: 24px; font-weight: 800; line-height: 1.2; }
+  .em-body { padding: 22px 24px; }
+  .em-body p { font-size: 14px; line-height: 1.65; color: #374151; margin-bottom: 14px; }
+  .em-photos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 16px 0; }
+  .em-photo { border-radius: 6px; overflow: hidden; }
+  .em-photo img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+  .em-photo-label { background: #1a3c2a; color: white; font-size: 9px; font-weight: 700; text-align: center; padding: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .em-cta { background: #f0fdf4; border-radius: 8px; padding: 18px 20px; text-align: center; margin: 16px 0; }
+  .em-cta p { font-size: 15px; font-weight: 700; color: #1a3c2a; margin-bottom: 12px; }
+  .em-btn { background: #1a3c2a; color: white; padding: 12px 28px; border-radius: 6px; font-size: 14px; font-weight: 700; display: inline-block; }
+  .em-phone { font-size: 12px; color: #6b7280; margin-top: 8px; }
+  .em-footer { background: #f9fafb; padding: 16px 24px; border-top: 1px solid #e5e7eb; text-align: center; }
+  .em-footer p { font-size: 11px; color: #9ca3af; line-height: 1.6; }
 
-  .e-hero { position: relative; height: 280px; overflow: hidden; }
-  .e-hero img { width: 100%; height: 100%; object-fit: cover; }
-  .e-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,60,42,0.85) 0%, rgba(26,60,42,0.2) 60%, transparent 100%); }
-  .e-hero-text { position: absolute; bottom: 0; left: 0; right: 0; padding: 24px 28px; color: white; }
-  .e-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #86efac; font-weight: 700; margin-bottom: 6px; }
-  .e-hero-text h2 { font-size: 28px; font-weight: 800; line-height: 1.15; }
-
-  .e-body { padding: 28px; }
-  .e-body p { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 16px; }
-  
-  .e-photo-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin: 20px 0; }
-  .e-photo-item { border-radius: 8px; overflow: hidden; aspect-ratio: 1; }
-  .e-photo-item img { width: 100%; height: 100%; object-fit: cover; }
-  .e-photo-label { background: #1a3c2a; color: white; font-size: 10px; font-weight: 700; text-align: center; padding: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
-
-  .e-cta-block { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 20px 24px; text-align: center; margin: 20px 0; }
-  .e-cta-block p { font-size: 16px; font-weight: 700; color: #1a3c2a; margin-bottom: 14px; }
-  .e-cta-btn { display: inline-block; background: #1a3c2a; color: white; padding: 14px 36px; border-radius: 6px; font-size: 15px; font-weight: 700; text-decoration: none; }
-  .e-phone { font-size: 13px; color: #6b7280; margin-top: 10px; }
-
-  .e-footer { background: #f9fafb; padding: 18px 28px; border-top: 1px solid #e5e7eb; text-align: center; }
-  .e-footer p { font-size: 11px; color: #9ca3af; line-height: 1.6; }
-  .e-footer a { color: #1a3c2a; }
+  /* FOOTER */
+  .page-footer { text-align: center; padding: 24px; color: rgba(255,255,255,0.2); font-size: 12px; }
 </style>
 </head>
 <body>
 
-<div class="page-header">
-  <h1>Prepared by 2FLY Digital Marketing</h1>
-  <p>JT Fence — Spring 2026 Email Campaign</p>
-</div>
-
-<div class="why-box">
-  <h2>Why This Campaign</h2>
-  <ul class="why-list">
-    <li><span class="num">1</span> <span><strong>2,847 homeowners</strong> in Cape Cod &amp; South Shore targeted — properties $400K+</span></li>
-    <li><span class="num">2</span> <span><strong>Peak season timing</strong> — May through July is when homeowners book fence installs</span></li>
-    <li><span class="num">3</span> <span><strong>$350 total investment</strong> · Projected 3-7 jobs · Est. $9K-21K in revenue</span></li>
-  </ul>
-</div>
-
-<!-- EMAIL MOCK -->
-<div class="email-wrap">
-
-  <!-- Header -->
-  <div class="e-header">
-    <div class="e-logo-box">
-      <img src="https://jtfenceboston.com/jtlogo.png" alt="JT Fence" onerror="this.style.display='none'">
-    </div>
-    <div class="e-brand">
-      <div class="e-brand-name">JT Fence Inc.</div>
-      <div class="e-brand-sub">Professional Fence Installation · Massachusetts</div>
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">2F</div>
+    <div>
+      <div class="nav-name">2FLY Campaign System</div>
+      <div class="nav-sub">Email Intelligence Platform</div>
     </div>
   </div>
-
-  <!-- Hero with real photo -->
-  <div class="e-hero">
-    <img src="https://jtfenceboston.com/images/pool/pool-04-pool-spa-wide.png" alt="Beautiful fence installation" onerror="this.src='https://jtfenceboston.com/images/wood/PHOTO-2026-03-31-09-23-28.jpg'">
-    <div class="e-hero-overlay"></div>
-    <div class="e-hero-text">
-      <div class="e-kicker">Spring 2026 · Cape Cod &amp; South Shore</div>
-      <h2>Is Your Property Ready<br>for a New Fence?</h2>
-    </div>
+  <div class="nav-right">
+    <div class="status-dot"></div>
+    <div class="status-text">CAMPAIGN ACTIVE</div>
+    <div class="campaign-badge">JT Fence · Spring 2026</div>
   </div>
+</nav>
 
-  <!-- Body -->
-  <div class="e-body">
-    <p>Hi [First Name],</p>
-    <p>Spring is here — and it's the perfect time to add privacy, security, and curb appeal to your Cape Cod property. JT Fence Inc. has been installing beautiful fences across Massachusetts for 25+ years.</p>
+<div class="main">
 
-    <!-- Photo grid with real images -->
-    <div class="e-photo-row">
-      <div>
-        <div class="e-photo-item"><img src="https://jtfenceboston.com/images/wood/PHOTO-2026-03-31-09-23-29%202.jpg" alt="Wood Fence"></div>
-        <div class="e-photo-label">Wood Fences</div>
+  <!-- Campaign Header -->
+  <div class="campaign-header">
+    <div class="campaign-header-left">
+      <h1>JT Fence Inc. — Spring Homeowner Outreach</h1>
+      <p>Cape Cod · South Shore · Plymouth County · Norfolk County · Targeting owner-occupied homes $400K+</p>
+    </div>
+    <div class="campaign-meta">
+      <div class="meta-item">
+        <div class="meta-label">Launch Date</div>
+        <div class="meta-value">May 5, 2026</div>
       </div>
-      <div>
-        <div class="e-photo-item"><img src="https://jtfenceboston.com/images/vinyl/vinyl-post-rail-hydrangeas.jpg" alt="Vinyl Fence"></div>
-        <div class="e-photo-label">Vinyl Fences</div>
-      </div>
-      <div>
-        <div class="e-photo-item"><img src="https://jtfenceboston.com/images/pool/pool-aluminum-backyard-01.jpg" alt="Pool Fence"></div>
-        <div class="e-photo-label">Pool Fences</div>
+      <div class="meta-item">
+        <div class="meta-label">Status</div>
+        <div class="meta-value" style="color:#fbbf24;">Ready</div>
       </div>
     </div>
+  </div>
 
-    <p>Whether you're looking for a classic wood privacy fence, low-maintenance vinyl, or an elegant aluminum pool fence — we do it all, and we do it right.</p>
-    <p><strong>Free estimates. No obligation. Licensed &amp; insured.</strong></p>
-
-    <div class="e-cta-block">
-      <p>Get your free spring estimate today</p>
-      <a href="https://jtfenceboston.com" class="e-cta-btn">Request Free Estimate →</a>
-      <div class="e-phone">Or call us directly: <strong>(781) 420-5858</strong></div>
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-num green">2,847</div>
+      <div class="kpi-label">Homeowners Found</div>
+      <div class="kpi-sub" style="color:rgba(255,255,255,0.4)">Owner-occupied $400K+</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num purple">2,391</div>
+      <div class="kpi-label">Emails Detected</div>
+      <div class="kpi-sub green">84% match rate</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num blue">4</div>
+      <div class="kpi-label">Counties Covered</div>
+      <div class="kpi-sub" style="color:rgba(255,255,255,0.4)">12 ZIP codes</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num amber">$350</div>
+      <div class="kpi-label">Total Investment</div>
+      <div class="kpi-sub" style="color:rgba(255,255,255,0.4)">List + platform</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num pink">8–18</div>
+      <div class="kpi-label">Projected Leads</div>
+      <div class="kpi-sub green">Est. $24K–54K revenue</div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <div class="e-footer">
-    <p>JT Fence Inc. · Licensed &amp; Insured · Serving Cape Cod, South Shore &amp; Greater Boston<br>
-    <a href="#">Unsubscribe</a> · You received this because you own a home in our service area.</p>
+  <!-- County Table + Email Preview -->
+  <div class="grid2">
+
+    <!-- County Breakdown -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">County Breakdown</span>
+        <span class="card-badge">4 counties · 12 ZIPs</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>County / Area</th>
+            <th>Owners</th>
+            <th>Emails</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <div class="county-name">Barnstable County</div>
+              <div class="county-sub">Cape Cod · Barnstable, Dennis, Falmouth, Brewster, Chatham, Sandwich</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:82%"></div></div>
+            </td>
+            <td><span class="green">1,421</span></td>
+            <td>1,187</td>
+            <td><span class="tag tag-ready">Ready</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="county-name">Plymouth County</div>
+              <div class="county-sub">South Shore · Plymouth, Duxbury, Marshfield</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:74%"></div></div>
+            </td>
+            <td><span class="green">897</span></td>
+            <td>763</td>
+            <td><span class="tag tag-ready">Ready</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="county-name">Norfolk County</div>
+              <div class="county-sub">Scituate, Cohasset, Hingham</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div>
+            </td>
+            <td><span class="green">341</span></td>
+            <td>268</td>
+            <td><span class="tag tag-ready">Ready</span></td>
+          </tr>
+          <tr>
+            <td>
+              <div class="county-name">Bristol County</div>
+              <div class="county-sub">Wareham, Marion, Mattapoisett</div>
+              <div class="progress-bar"><div class="progress-fill" style="width:51%"></div></div>
+            </td>
+            <td><span class="amber">188</span></td>
+            <td>173</td>
+            <td><span class="tag tag-pending">Wave 2</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Send Schedule -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Send Schedule</span>
+        <span class="card-badge">2 waves</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Wave</th>
+            <th>Date</th>
+            <th>Audience</th>
+            <th>Volume</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:#4ade80">Wave 1</strong></td>
+            <td style="color:rgba(255,255,255,0.6);font-size:12px">May 5, 2026</td>
+            <td>
+              <div style="font-size:12px;font-weight:600">Cape Cod Homeowners</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4)">Barnstable County</div>
+            </td>
+            <td><span class="green">1,187</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:#60a5fa">Wave 2</strong></td>
+            <td style="color:rgba(255,255,255,0.6);font-size:12px">May 12, 2026</td>
+            <td>
+              <div style="font-size:12px;font-weight:600">South Shore Homeowners</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4)">Plymouth + Norfolk</div>
+            </td>
+            <td><span class="blue">1,031</span></td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fbbf24">Wave 3</strong></td>
+            <td style="color:rgba(255,255,255,0.6);font-size:12px">May 19, 2026</td>
+            <td>
+              <div style="font-size:12px;font-weight:600">Re-engage: Opened, didn't click</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4)">All counties</div>
+            </td>
+            <td><span class="amber">~380</span></td>
+          </tr>
+          <tr>
+            <td colspan="4" style="padding:14px 16px;background:rgba(107,78,255,0.08);border-top:1px solid rgba(107,78,255,0.2)">
+              <div style="font-size:12px;color:#a78bfa;font-weight:600">+ Digital Retargeting runs in parallel</div>
+              <div style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:3px">Same audience gets Google + Meta ads for 30 days after email</div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Email Preview -->
+  <div class="email-section card">
+    <div class="card-header">
+      <span class="card-title">Email Preview — Homeowner Version</span>
+      <span class="card-badge">Pending launch approval</span>
+    </div>
+    <div class="email-outer">
+      <div class="email-mock">
+        <div class="em-head">
+          <div class="em-logo"><img src="https://jtfenceboston.com/jtlogo.png" alt="JT" onerror="this.style.display='none'"></div>
+          <div>
+            <div class="em-brand-name">JT Fence Inc.</div>
+            <div class="em-brand-sub">Professional Fence Installation · Massachusetts</div>
+          </div>
+        </div>
+        <div class="em-hero">
+          <img src="https://jtfenceboston.com/images/pool/pool-04-pool-spa-wide.png" alt="Fence" onerror="this.src='https://jtfenceboston.com/images/wood/PHOTO-2026-03-31-09-23-28.jpg'">
+          <div class="em-hero-overlay"></div>
+          <div class="em-hero-text">
+            <div class="em-kicker">Spring 2026 · Cape Cod &amp; South Shore</div>
+            <div class="em-h">Is Your Property Ready<br>for a New Fence?</div>
+          </div>
+        </div>
+        <div class="em-body">
+          <p>Hi [First Name],</p>
+          <p>Spring is here — and it's the perfect time to add privacy, security, and curb appeal to your property. JT Fence Inc. has been installing beautiful fences across Massachusetts for 25+ years.</p>
+          <div class="em-photos">
+            <div class="em-photo">
+              <img src="https://jtfenceboston.com/images/wood/PHOTO-2026-03-31-09-23-29%202.jpg" alt="Wood">
+              <div class="em-photo-label">Wood</div>
+            </div>
+            <div class="em-photo">
+              <img src="https://jtfenceboston.com/images/vinyl/vinyl-post-rail-hydrangeas.jpg" alt="Vinyl">
+              <div class="em-photo-label">Vinyl</div>
+            </div>
+            <div class="em-photo">
+              <img src="https://jtfenceboston.com/images/pool/pool-aluminum-backyard-01.jpg" alt="Aluminum">
+              <div class="em-photo-label">Aluminum</div>
+            </div>
+          </div>
+          <p>Free estimates. No obligation. <strong>Licensed &amp; insured.</strong></p>
+          <div class="em-cta">
+            <p>Get your free spring estimate today</p>
+            <div class="em-btn">Request Free Estimate →</div>
+            <div class="em-phone">Or call: <strong>(781) 420-5858</strong></div>
+          </div>
+        </div>
+        <div class="em-footer">
+          <p>JT Fence Inc. · Licensed &amp; Insured · Serving Cape Cod, South Shore &amp; Greater Boston<br>
+          Unsubscribe · You received this because you own a home in our service area.</p>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>
+
+<div class="page-footer">2FLY Digital Marketing · Email Campaign System · Prepared for JT Fence Inc.</div>
 
 </body>
 </html>
